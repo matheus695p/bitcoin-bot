@@ -1,5 +1,5 @@
 import pandas as pd
-from time import time
+import time
 from datetime import datetime
 from src.module import (get_bt_price_pesos, add_lagged_values,
                         get_close_price)
@@ -33,6 +33,7 @@ def main():
 
             texto = f"precio bitcoin: {round(consulta / 10**6, 3)} Millones de pesos"
             send_message_telegram(texto, ahora)
+        contador += 1
         # tiempo entre consultas
         time.sleep(freq_consulta)
 
