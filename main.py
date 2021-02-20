@@ -1,7 +1,8 @@
 import pandas as pd
 from time import time
 from datetime import datetime
-from src.module import (get_bt_price_pesos, add_lagged_values, get_close_price)
+from src.module import (get_bt_price_pesos, add_lagged_values,
+                        get_close_price)
 from src.bot import send_message_telegram
 
 
