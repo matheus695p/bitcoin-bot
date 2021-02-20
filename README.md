@@ -4,7 +4,7 @@ bot de telegram con alertas personalizadas para un par de jiles que están compr
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
 ## setup del bot
-Pasos a seguir para hacer ambiente de trabajo del producto:
+Pasos a seguir para hacer ambiente de trabajo del bot:
 ```sh
 $ git clone https://github.com/matheus695p/bitcoin.git
 $ cd bitcoin
