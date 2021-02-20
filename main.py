@@ -19,6 +19,8 @@ def main():
         historial.append([ahora, consulta])
         if contador <= min_iteraciones:
             pass
+            texto = f"precio bitcoin: {round(consulta / 10**6, 3)} Millones de pesos"
+            send_message_telegram(texto, ahora)
         else:
             fecha, valor = get_close_price()
             analisis = pd.DataFrame(
@@ -29,7 +31,7 @@ def main():
             # implementar inteligencia sobre logicas de vender o comprar
             analisis["valor_cierre"] = valor * 750
 
-            texto = "prueba del bot para los sapos"
+            texto = f"precio bitcoin: {round(consulta / 10**6, 3)} Millones de pesos"
             send_message_telegram(texto, ahora)
         # tiempo entre consultas
         time.sleep(freq_consulta)
