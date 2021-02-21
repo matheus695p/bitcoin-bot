@@ -19,6 +19,39 @@ def ask_google(coin="bitcoin"):
     return text
 
 
+def ask_coindesk_price():
+    url = "https://www.coindesk.com/price/bitcoin/"
+    print(url)
+    # hacer request de html
+    HTML = requests.get(url)
+    # parsear html
+    soup = BeautifulSoup(HTML.text, 'html.parser')
+    # encontrar el div que tenga el precio
+    job_elems = soup.find_all('section', class_='default global-content')
+    for job_elem in job_elems:
+        precio = job_elem.find('div', class_='price-large').text
+        print(precio)
+    precio = precio.replace(",", "").replace("$", "")
+    return float(precio)
+
+
+def ask_coindesk_porcentual_increase():
+    url = "https://www.coindesk.com/price/bitcoin/"
+    print(url)
+    # hacer request de html
+    HTML = requests.get(url)
+    # parsear html
+    soup = BeautifulSoup(HTML.text, 'html.parser')
+    # encontrar el div que tenga el precio
+    job_elems = soup.find_all('section', class_='default global-content')
+    for job_elem in job_elems:
+        variacion = job_elem.find('div', class_='percent-change-medium').text
+        print(variacion)
+    variacion = variacion.replace("%", "")
+    variacion = variacion + " %"
+    return variacion
+
+
 def ask_google_general_questions(pregunta="precio del bitcoin en dolares"):
     # url donde ir a buscar la info de google
     url = "https://www.google.com/search?q=" + pregunta
@@ -91,6 +124,5 @@ def diff_lagged_values(df, column="valor_dolar", n=5):
     # crear columnas a lo maldito para analizar tendencia al alza o baja
     for i in range(1, n+1):
         column = f"lag_value_{i}"
-        print(i, column)
         df[column] = df["valor_dolar"].shift(i)
     return df
