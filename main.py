@@ -1,8 +1,8 @@
 import time
 import pandas as pd
 from datetime import datetime
-from src.module import (ask_google_general_questions, add_lagged_values,
-                        get_close_price, parser)
+from src.module import (ask_coindesk_price, add_lagged_values,
+                        get_close_price, ask_coindesk_porcentual_increase)
 from src.bot import send_message_telegram
 
 
@@ -16,10 +16,15 @@ def main():
     while True:
         print("iteracion número: ", contador)
         ahora = datetime.now().replace(microsecond=0)
-        consulta = parser(ask_google_general_questions())
+        consulta = ask_coindesk_price()
+        variacion = ask_coindesk_porcentual_increase()
         historial.append([ahora, consulta])
-        texto =\
+        texto1 =\
             f"precio bitcoin: {round(consulta, 9)} dolares"
+        texto2 =\
+            f"aumento procentual: {variacion}"
+        texto = texto1 + '\n' + texto2
+
         if contador <= min_iteraciones:
             pass
             send_message_telegram(texto, ahora)
