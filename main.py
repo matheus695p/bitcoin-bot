@@ -1,8 +1,8 @@
-import pandas as pd
 import time
+import pandas as pd
 from datetime import datetime
-from src.module import (get_bt_price_pesos, add_lagged_values,
-                        get_close_price)
+from src.module import (ask_google_general_questions, add_lagged_values,
+                        get_close_price, parser)
 from src.bot import send_message_telegram
 
 
@@ -16,22 +16,22 @@ def main():
     while True:
         print("iteracion número: ", contador)
         ahora = datetime.now().replace(microsecond=0)
-        consulta = get_bt_price_pesos()
+        consulta = parser(ask_google_general_questions())
         historial.append([ahora, consulta])
         texto =\
-            f"precio bitcoin: {round(consulta / 10**6, 9)} Millones de pesos"
+            f"precio bitcoin: {round(consulta, 9)} dolares"
         if contador <= min_iteraciones:
             pass
             send_message_telegram(texto, ahora)
         else:
             fecha, valor = get_close_price()
             analisis = pd.DataFrame(
-                historial, columns=["fecha", "valor_pesos"])
-            analisis["diff"] = analisis["valor_pesos"].diff()
-            analisis["media_movil"] = analisis["valor_pesos"].rolling(5).mean()
+                historial, columns=["fecha", "valor_dolar"])
+            analisis["diff"] = analisis["valor_dolar"].diff()
+            analisis["media_movil"] = analisis["valor_dolar"].rolling(5).mean()
             analisis = add_lagged_values(analisis, n=10)
             # implementar inteligencia sobre logicas de vender o comprar
-            analisis["valor_cierre"] = valor * 750
+            analisis["valor_cierre"] = valor
 
             send_message_telegram(texto, ahora)
         contador += 1

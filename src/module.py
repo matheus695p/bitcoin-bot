@@ -19,6 +19,21 @@ def ask_google(coin="bitcoin"):
     return text
 
 
+def ask_google_general_questions(pregunta="precio del bitcoin en dolares"):
+    # url donde ir a buscar la info de google
+    url = "https://www.google.com/search?q=" + pregunta
+    print(url)
+    # hacer request de html
+    HTML = requests.get(url)
+    # parsear html
+    soup = BeautifulSoup(HTML.text, 'html.parser')
+    # encontrar el div que tenga el precio
+    text = soup.find("div", attrs={'class': 'BNeawe iBp4i AP7Wnd'}).find(
+        "div", attrs={'class': 'BNeawe iBp4i AP7Wnd'}).text
+    print(text)
+    return text
+
+
 def parser(price_text):
     print(price_text)
     text = price_text.replace(",", "")
@@ -49,7 +64,7 @@ def add_lagged_values(df, n=5):
     for i in range(1, n+1):
         column = f"lag_value_{i}"
         print(i, column)
-        df[column] = df["valor_pesos"].shift(i)
+        df[column] = df["valor_dolar"].shift(i)
     return df
 
 
@@ -72,10 +87,10 @@ def get_close_price():
     return fecha, valor
 
 
-def diff_lagged_values(df, column="valor_pesos", n=5):
+def diff_lagged_values(df, column="valor_dolar", n=5):
     # crear columnas a lo maldito para analizar tendencia al alza o baja
     for i in range(1, n+1):
         column = f"lag_value_{i}"
         print(i, column)
-        df[column] = df["valor_pesos"].shift(i)
+        df[column] = df["valor_dolar"].shift(i)
     return df
