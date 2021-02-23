@@ -11,7 +11,7 @@ def main():
     historial = []
     contador = 0
     # frecuencia de la consulta cada 60 segundos
-    freq_consulta = 60
+    freq_consulta = 10
     min_iteraciones = 10
     while True:
         print("iteracion número: ", contador)
@@ -27,7 +27,7 @@ def main():
 
         if contador <= min_iteraciones:
             pass
-            send_message_telegram(texto, ahora)
+            # send_message_telegram(texto, ahora)
         else:
             fecha, valor = get_close_price()
             analisis = pd.DataFrame(
@@ -38,10 +38,10 @@ def main():
             # implementar inteligencia sobre logicas de vender o comprar
             analisis["valor_cierre"] = valor
 
-            send_message_telegram(texto, ahora)
+            # send_message_telegram(texto, ahora)
         contador += 1
         # tiempo entre consultas
-        time.sleep(freq_consulta)
+        time.sleep(freq_consulta*2)
 
 
 if __name__ == '__main__':

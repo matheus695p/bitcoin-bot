@@ -96,7 +96,7 @@ def add_lagged_values(df, n=5):
     # crear columnas a lo maldito para analizar tendencia al alza o baja
     for i in range(1, n+1):
         column = f"lag_value_{i}"
-        print(i, column)
+        # print(i, column)
         df[column] = df["valor_dolar"].shift(i)
     return df
 
