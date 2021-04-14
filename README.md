@@ -1,7 +1,25 @@
-# bitcoin
-bot de telegram con alertas personalizadas para un par de jiles que están comprando bitcoin y viendo cada 5 minutos el precio
+![Build Status](https://www.repostatus.org/badges/latest/active.svg)
 
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
+# bitcoin
+La idea del repo, cambió, ahora metí plata en las cryptos:
+
+La idea es sacar info de trading desde acá:
+
+
+* https://www.tradingview.com/
+
+
+Ya sea mandandolas a telegram o whatsapp, la idea es tener el precio a tiempo real de cada una de las cryptos que estoy comprando, tendencias diarias, es decir si comviene comprar, vender o quedarse con lo que estámos y alertas en casos especifícos como que el precio de alguna crypto se venga muy a abajo y haya que vender lo más rápido posible.
+
+
+Entonces:
+* Precio a tiempo real en un grupo
+* Tendencias cada hora en un grupo
+* Alertas de caídas brutales en otro grupo
+
+De esta manera se pueden silenciar los dos primeros y quedarse solo con el tercero, pero tener toda la info disponible para cuando se queira hacer.
+
+
 
 ## setup del bot
 Pasos a seguir para hacer ambiente de trabajo del bot:
