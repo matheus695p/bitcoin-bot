@@ -31,7 +31,8 @@ def ask_coindesk_price():
     for job_elem in job_elems:
         precio = job_elem.find('div', class_='price-large').text
         print(precio)
-    precio = precio.replace(",", "").replace("$", "")
+        precio = precio.replace(",", "").replace("$", "")
+
     return float(precio)
 
 
