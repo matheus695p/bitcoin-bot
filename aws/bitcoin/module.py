@@ -33,9 +33,9 @@ def ask_google(coin="bitcoin"):
     return text
 
 
-def ask_coindesk_price():
+def ask_coindesk_price(crypto="bitcoin"):
     """
-    Preguntar el precio del bitcoin en www.coindesk.com
+    Preguntar el precio de diferenrtes cryptos en www.coindesk.com
 
     Returns
     -------
@@ -43,7 +43,7 @@ def ask_coindesk_price():
         precio del bitcoin.
 
     """
-    url = "https://www.coindesk.com/price/bitcoin/"
+    url = f"https://www.coindesk.com/price/{crypto}/"
     print(url)
     # hacer request de html
     HTML = requests.get(url)
@@ -59,7 +59,7 @@ def ask_coindesk_price():
     return float(precio)
 
 
-def ask_coindesk_porcentual_increase():
+def ask_coindesk_porcentual_increase(crypto="bitcoin"):
     """
     Dentro de la pregunta preguntar también por la variación porcentual
     Returns
@@ -68,7 +68,7 @@ def ask_coindesk_porcentual_increase():
         variación porcentual del bitcoin.
 
     """
-    url = "https://www.coindesk.com/price/bitcoin/"
+    url = f"https://www.coindesk.com/price/{crypto}/"
     print(url)
     # hacer request de html
     HTML = requests.get(url)

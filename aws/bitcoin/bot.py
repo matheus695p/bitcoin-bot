@@ -2,6 +2,15 @@ import json
 import requests
 
 
+def create_message(price, variation, crypto="BTC"):
+    text_1 =\
+        f"precio {crypto}: {round(price, 9)} dolares"
+    text_2 =\
+        f"aumento procentual {crypto}: {variation}"
+    message = text_1 + '\n' + text_2
+    return message
+
+
 def send_message_telegram(message, fecha, nombre="!!!"):
     """
     Customizar el mensaje a telegram
@@ -20,7 +29,7 @@ def send_message_telegram(message, fecha, nombre="!!!"):
     """
     fecha = fecha.strftime("%d-%b-%Y %H:%M:%S")
     # filtrar por el evento
-    first_line = f"BITCOIN INFO {nombre}"
+    first_line = f"INFO {nombre}"
     second_line = "Fecha actual: " + fecha
     final_message = first_line + '\n' + second_line + '\n' + message
     telegram_bot_sendtext(final_message)
