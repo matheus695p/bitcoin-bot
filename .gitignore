@@ -6,6 +6,13 @@ __pycache__/
 # C extensions
 *.so
 
+# cosas que no se pueden subir
+aws/deploy.sh
+aws/samconfig.toml
+aws/packaged.yaml
+aws/bitcoin/keys.json
+
+
 *.mp4
 # Distribution / packaging
 .Python
