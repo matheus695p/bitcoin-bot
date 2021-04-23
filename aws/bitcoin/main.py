@@ -17,5 +17,4 @@ def handler(event, context):
                                  crypto=crypto.upper())
         final_message = final_message + "\n" + message
     print(final_message)
-
     send_message_telegram(final_message, now)
