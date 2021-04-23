@@ -10,9 +10,9 @@ __pycache__/
 aws/deploy.sh
 aws/samconfig.toml
 aws/packaged.yaml
+on-premise/src/keys.json
+
 aws/bitcoin/keys.json
-
-
 *.mp4
 # Distribution / packaging
 .Python
