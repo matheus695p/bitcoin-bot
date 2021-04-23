@@ -1,0 +1,98 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Template para lambda del bitcoin
+
+Parameters:
+  BVersion:
+    Description: Boto3 Version
+    Type: String
+    Default: 1
+
+  PVersion:
+    Description: Pandas Version
+    Type: String
+    Default: 1
+
+  WVersion:
+    Description: Wrangler Version
+    Type: String
+    Default: 1
+
+Globals:
+  Function:
+    Environment:
+    # en el caso que quiera guardar historicos en s3
+      Variables:
+        rawbucket: !Sub '{{resolve:ssm:RawBucket:1}}'
+        inputbucket: !Sub '{{resolve:ssm:InputBucket:1}}'
+        outputbucket: !Sub '{{resolve:ssm:OutputBucket:1}}'
+
+Resources:
+  # IAM Role -
+  LambdaRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      RoleName: !Sub ${AWS::StackName}-Role
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action: 'sts:AssumeRole'
+            Principal:
+              Service: lambda.amazonaws.com
+      Policies:
+        - PolicyName: WriteCloudWatchLogs
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - 'logs:CreateLogGroup'
+                  - 'logs:CreateLogStream'
+                  - 'logs:PutLogEvents'
+                Resource: 'arn:aws:logs:*:*:*'
+        - PolicyName: ReadOnInputBucket
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: 's3:*'
+                Resource: '*'
+        - PolicyName: allowLambda
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+            - Effect: Allow
+              Action:
+              - lambda:*
+              Resource: "*"
+# lambda
+  BtcLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${AWS::StackName}
+      MemorySize: 128
+      Timeout: 10
+      Runtime: python3.7
+      CodeUri: bitcoin/
+      Handler: main.handler
+      Role: !GetAtt LambdaRole.Arn
+      Events:
+        EjecutarProcesamiento:
+          Type: Schedule
+          Properties:
+            Schedule: rate(5 minutes)
+          Metadata:
+            StackeryName: cada 5 minutos
+      # por si en un futuro uso pandas
+      Layers:
+        - !Sub 'arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:layer:awswrangler:${WVersion}'
+
+Outputs:
+
+  BtcLambda:
+    Description: "BTC"
+    Value: !Ref BtcLambda
+    Export:
+        Name: !Sub "${AWS::StackName}-BtcLambda"
