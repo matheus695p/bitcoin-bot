@@ -8,7 +8,7 @@ def handler(event, context):
     now = datetime.now().replace(microsecond=0)
 
     cryptos = ["bitcoin", "ethereum", "xrp", "stellar", "cardano", "polkadot",
-               "dogecoin", "litecoin", "neo"]
+               "dogecoin"]
     final_message = ""
     for crypto in cryptos:
         price = ask_coindesk_price(crypto=crypto)

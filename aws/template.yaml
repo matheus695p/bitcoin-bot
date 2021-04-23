@@ -73,7 +73,7 @@ Resources:
     Properties:
       FunctionName: !Sub ${AWS::StackName}
       MemorySize: 128
-      Timeout: 10
+      Timeout: 50
       Runtime: python3.7
       CodeUri: bitcoin/
       Handler: main.handler
