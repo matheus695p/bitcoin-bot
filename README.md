@@ -35,11 +35,30 @@ descripción:
  
 ```sh
 │   .gitignore
-│   main.py            ------> archivo a ajecutar en un pc o servidor
 │   README.md
 │   requirements.txt
-└───src
-    │   bot.py        ------> funciones del bot
-    │   module.py     ------> funciones de las consultas a google acerca del precio del bitcoin
+│
+├───aws
+│   │   deploy.sh      --> sam deploy
+│   │   packaged.yaml
+│   │   samconfig.toml
+│   │   template.yaml  --> template de la lambda│   │
+│   └───bitcoin
+│       │   bot.py
+│       │   keys.json  --> mis credenciales
+│       │   main.py
+│       │   module.py
+│       │   requirements.txt
+│
+└───on-premise
+    ├───codes
+    │       coindesk_price.py
+    │       trading_api.py
+    │       trading_view.py
+    │
+    └───src
+            bot.py
+            keys.json  --> mis credenciales
+            module.py
 
 ```
