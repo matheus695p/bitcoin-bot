@@ -4,9 +4,9 @@ import requests
 
 def create_message(price, variation, crypto="BTC"):
     text_1 =\
-        f"precio {crypto}: {round(price, 9)} dolares"
+        f"Precio {crypto}: {round(price, 9)} dolares"
     text_2 =\
-        f"aumento procentual {crypto}: {variation}"
+        f"Variación procentual {crypto}: {variation} %"
     message = text_1 + '\n' + text_2
     return message
 
