@@ -82,9 +82,9 @@ Resources:
         EjecutarProcesamiento:
           Type: Schedule
           Properties:
-            Schedule: rate(5 minutes)
+            Schedule: rate(30 minutes)
           Metadata:
-            StackeryName: cada 5 minutos
+            StackeryName: cada 30 minutos
       # por si en un futuro uso pandas
       Layers:
         - !Sub 'arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:layer:awswrangler:${WVersion}'
